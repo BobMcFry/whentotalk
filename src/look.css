@@ -1,0 +1,25 @@
+/* Make background */
+html { 
+	background: url("../img/background_blurred.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+/* Reset white background from bootstrap */
+body { 
+	background-color: transparent; 
+}
+
+.timeslidercontainer {
+	padding:60px 0px 50px 0px;	
+}
+
+.active-partner {
+	display: block;
+}
+
+.inactive-partner {
+	display: none;
+}
