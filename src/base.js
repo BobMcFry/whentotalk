@@ -10,9 +10,6 @@ var Interval = function(start, end, offset){
 	this.offset 	= offset;
 }
 
-// Constants
-// Interval.prototype.CONSTANT = 5;
-
 /**
  * Shifts interval to the origin (i.e. to zero o' clock) and returns that as a 
  * new object.
@@ -84,13 +81,23 @@ Interval.prototype.getDuration = function() {
 
 
 
-var Person = function(name, cityIdx, interval, select){
+var Person = function(name, cityIdx, timeslider, interval, select){
 	this.name 		= name;
 	this.cityIdx 	= cityIdx; // if -1 the person is not used
+	this.timeslider = timeslider;
 	this.interval 	= interval;
 	this.select 	= select;
 }
 
+
+Person.prototype.getInterval = function() {
+	if (this.cityIdx < 0) {
+		this.interval 	= null;
+	} else {
+		var range 		= this.timeslider.noUiSlider.get();
+		this.interval 	= new Interval(parseInt(range[0]), parseInt(range[1]), cities[this.cityIdx].offset);
+	}
+}
 
 
 

@@ -1,3 +1,5 @@
+MAX_INT_LEN = 48;
+MIN_INT_LEN = 0;
 PERSON_CNT 	= 4;
 persons 	= new Array();
 
@@ -47,6 +49,12 @@ function initialize() {
 				stepped: true
 			}
 	    });
+
+	    persons[idx].timeslider = elem;
+
+	    elem.noUiSlider.on('update', function(){
+			persons[idx].getInterval();			
+		});
 	});
 }
 
@@ -103,19 +111,53 @@ function timesliderHandleUndo(value) {
 
 
 function calculateConversation(){
-	$(".active-partner").each(function(idx, elem){
-		$(elem).children(".timeslider").each(function(idx2, elem2){
-			var range 				= $(elem2).noUiSlider.get();
-			var interval 			= new Interval(range[0], range[1], cities[persons[idx].cityIdx].offset);
-			persons[idx].interval 	= interval;
-		});
-	});
+	
+}
+
+function displayResult(intervals){
+
+	// XXX: sort them or make sure they are sorted
+	var current = 0;
+	for (var i = 0; i < intervals.length; i++) {
+		// paint red bar between intervals (should always apply)
+		if (current < intervals[i].start){
+			// paint red bar till start
+			paintBar("progress-bar-danger", intervals[i].start - current, false);
+			current = intervals[i].start;
+		} 
+		
+		// paint interval
+		paintBar("progress-bar-success", intervals[i].end - current, true);
+		current = intervals[i].end;
+	};
+
+	// paint last bar
+	if (current < MAX_INT_LEN){
+		paintBar("progress-bar-danger", MAX_INT_LEN - current, false);
+	}
+
+}
+
+// Holds all conversion functionalities. So width can be set via absolute values
+function paintBar(color, width, text){
+	widthString = ((width/MAX_INT_LEN)*100) + "%";
+	$("#result").append($("<div></div>")
+		.attr("class", "progress-bar " + color)
+		.attr("style", "width:"+widthString)
+		.text((text ? width+"h": "")));
 }
 
 
-
-
-
+function testDisplayResult() {
+	var intervals = new Array();
+	intervals.push(new Interval(1, 2, 0));
+	intervals.push(new Interval(5, 8, 0));
+	intervals.push(new Interval(12, 19, 0));
+	intervals.push(new Interval(20, 21, 0));
+	intervals.push(new Interval(30, 38, 0));
+	displayResult(intervals);
+}
+	
 
 
 
