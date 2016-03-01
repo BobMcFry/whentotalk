@@ -21,58 +21,57 @@
     <![endif]-->
   </head>
   <body onload="initialize();">
-    <h1>WhenToTalk</h1>
-
     <div class="container">
+      <div class="page-header">
+        <h1>WhenToTalk</h1>
+      </div>
       <div id="appcontent">
         <div class="row">
-          
-          <div class="col-md-6 active-partner" id="partner-1">
-            <h2>Partner 1</h2>
+          <div class="col-md-6 active-partner" id="partner-0">
             <select class="city-select" placeholder="Choose a City...">
               <option value=""></option>
             </select>
             <div class="timeslidercontainer">
-              <p class="timeslider" id="timeslider-1"></p>
+              <p class="timeslider" id="timeslider-0">
+                <div class="progress" id="result-0"></div>
+              </p>
             </div>
           </div>
 
-          <div class="col-md-6 active-partner" id="partner-2">
-            <h2>Partner 2</h2>
+          <div class="col-md-6 active-partner" id="partner-1">
             <select class="city-select" placeholder="Choose a City...">
               <option value=""></option>
             </select>
             <div class="timeslidercontainer">
-              <p class="timeslider" id="timeslider-2"></p>
+              <p class="timeslider" id="timeslider-1">
+                <div class="progress" id="result-1"></div>
+              </p>
             </div>
+          </div>
+
+          <div class="col-md-6 inactive-partner" id="partner-2">
+            <select class="city-select" placeholder="Choose a City...">
+              <option value=""></option>
+            </select>
+            
+            <div class="timeslidercontainer">
+              <p class="timeslider" id="timeslider-2">
+                <div class="progress" id="result-2"></div>
+              </p>
+            </div>
+            
           </div>
 
           <div class="col-md-6 inactive-partner" id="partner-3">
-            <h2>Partner 3</h2>
             <select class="city-select" placeholder="Choose a City...">
               <option value=""></option>
             </select>
             <div class="timeslidercontainer">
-              <p class="timeslider" id="timeslider-3"></p>
+              <p class="timeslider" id="timeslider-3">
+                <div class="progress" id="result-3"></div>
+              </p>
             </div>
           </div>
-
-          <div class="col-md-6 inactive-partner" id="partner-4">
-            <h2>Partner 4</h2>
-            <select class="city-select" placeholder="Choose a City...">
-              <option value=""></option>
-            </select>
-            <div class="timeslidercontainer">
-              <p class="timeslider" id="timeslider-4"></p>
-            </div>
-          </div>
-          
-          <!-- XXX: add here the rest of the partners such that they only need to be made visible -->
-          <div class="col-md-6">
-            <input class="btn btn-default" id="xyz" type="button" value="Calculate me!">
-          </div>
-          
-          <div class="progress" id="result"></div>
 
         </div>
       </div>

@@ -9,88 +9,41 @@ var Interval = function(start, end, offset){
 	/** Offset to UTC */
 	this.offset 	= offset;
 }
+// Returns an array because of a possible split at midnight
+Interval.prototype.getUTCIntervals = function() {
+	var returnIntervals = new Array();
 
-/**
- * Shifts interval to the origin (i.e. to zero o' clock) and returns that as a 
- * new object.
- * @return Interval prototype with the ofset intervals and the same timezone as 
- * the original one.
- */
-Interval.prototype.getIntervalShiftedToOrigin = function() {
-	// XXX
-};
-
-/**
- * Returns either Start time in UTC or with the actual timezone.
- * @var asUTC Boolean value that switches between returning UTC time or
- * the actual timezone dependant time
- * @return Start time in UTC or in actual timezone
- */
-Interval.prototype.getStartTime = function(asUTC) {
-	if (asUTC){
-		// XXX
-	} else {
-		// XXX
+	var start 	= this.start - this.offset;
+	var end 	= this.end - this.offset;
+	start 		= (start+24)%24;
+	end 		= (end+24)%24;
+	if (end == 0){
+		end = 24;
 	}
-};
-
-/**
- * Sets the timezone dependant Start time.
- */
-Interval.prototype.setStartTime = function(start) {
-	// XXX: convert that time to UTC
-};
-
-
-
-/**
- * Returns either End time in UTC or with the actual timezone.
- * @var asUTC Boolean value that switches between returning UTC time or
- * the actual timezone dependant time
- * @return End time in UTC or in actual timezone
- */
-Interval.prototype.getEndTime = function(asUTC) {
-	if (asUTC){
-		// XXX
+	if (start > end){
+		// split
+		returnIntervals.push(new Interval(start, 24, this.offset));
+		returnIntervals.push(new Interval(0, end, this.offset));
 	} else {
-		// XXX
+		// regular
+		returnIntervals.push(new Interval(start, end, this.offset));
 	}
-};
-
-/**
- * Sets the timezone dependant End time.
- */
-Interval.prototype.setEndTime = function(end) {
-	// XXX: convert that time to UTC
+	
+	return returnIntervals;
 };
 
 
-/**
- * Returns the duration of the interval in seconds.
- * @return Duration of the interval in seconds
- */
-Interval.prototype.getDuration = function() {
-	// XXX
-};
 
-
-// Interval.prototype.convertToUTC = function(first_argument) {
-// 	// body...
-// };
-
-
-
-
-var Person = function(name, cityIdx, timeslider, interval, select){
+var Person = function(name, cityIdx, timeslider, resultbar, interval){
 	this.name 		= name;
 	this.cityIdx 	= cityIdx; // if -1 the person is not used
 	this.timeslider = timeslider;
+	this.resultbar	= resultbar;
 	this.interval 	= interval;
-	this.select 	= select;
 }
 
 
-Person.prototype.getInterval = function() {
+Person.prototype.readInterval = function() {
 	if (this.cityIdx < 0) {
 		this.interval 	= null;
 	} else {
@@ -98,6 +51,20 @@ Person.prototype.getInterval = function() {
 		this.interval 	= new Interval(parseInt(range[0]), parseInt(range[1]), cities[this.cityIdx].offset);
 	}
 }
+
+Person.prototype.displayResult = function(intervals) {
+	var convertedIntervals = new Array();
+	var offset = this.interval.offset;
+	for (var i = 0; i < intervals.length; i++) {
+		var newInterval = new Interval((intervals[i].start + offset + 24)%24, (intervals[i].end + offset + 24)%24, 0);
+		if (newInterval.end == 0){
+			newInterval.end = 24;
+		}
+		convertedIntervals.push(newInterval);
+	};
+	convertedIntervals = sortIntervalArray(convertedIntervals);
+	displayResult(this.resultbar, convertedIntervals);
+};
 
 
 

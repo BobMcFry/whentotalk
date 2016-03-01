@@ -1,19 +1,19 @@
 /* Make background */
-html { 
+/*html { 
 	background: url("../img/background_blurred.jpg") no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-}
+}*/
 
 /* Reset white background from bootstrap */
-body { 
+/*body {
 	background-color: transparent; 
-}
+}*/
 
 .timeslidercontainer {
-	padding:60px 0px 50px 0px;	
+	padding:60px 40px 40px 40px;	
 }
 
 .active-partner {
@@ -22,4 +22,10 @@ body {
 
 .inactive-partner {
 	display: none;
+}
+
+/* for adjusting the progress bar according to the pips */
+.progress {
+	/*padding: -10px 0px 0px 0px;*/
+	height: 15px;
 }
