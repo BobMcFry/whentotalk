@@ -19,6 +19,7 @@ All Pictures are made by [me][github].
 * [jQuery][jquery]
 * [Bootstrap][bootstrap]
 * [Cities and timezones][cities]
+* Formatter: [wNumb][wnumb]
 * Slider: [noUiSlider][nouislider]
 * Dropdown list: [Selectize][selectize]
 
@@ -49,3 +50,4 @@ GNU General Public License for more details.
 [sublime]:http://www.sublimetext.com/2
 [chrome]:https://www.google.com/chrome/
 [csvjson]:http://www.convertcsv.com/csv-to-json.htm
+[wnumb]:http://refreshless.com/wnumb/
