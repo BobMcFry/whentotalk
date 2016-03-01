@@ -99,6 +99,9 @@ function installSelectize() {
 			sortField: 'text',
 			onChange: function(value){
 				persons[idx].cityIdx = value;
+				if (value == -1){
+					clearBar(persons[idx].resultbar);
+				}
 				persons[idx].readInterval();
 				calculateConversation();
 			}
