@@ -16,8 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
-/* Interval */
-
+/** 
+ *	Interval object.
+ */
 var Interval = function(start, end, offset){
 	/** Start time of Interval */
 	this.start		= start;
@@ -26,7 +27,11 @@ var Interval = function(start, end, offset){
 	/** Offset to UTC */
 	this.offset 	= offset;
 }
-// Returns an array because of a possible split at midnight
+
+/** 
+ *	Returns an array of corresponding UTC intervals because of a possible split
+ *	at midnight.
+ */
 Interval.prototype.getUTCIntervals = function() {
 	var returnIntervals = new Array();
 
@@ -50,7 +55,9 @@ Interval.prototype.getUTCIntervals = function() {
 };
 
 
-
+/**
+ *	Person object.
+ */
 var Person = function(name, cityIdx, timeslider, resultbar, interval){
 	this.name 		= name;
 	this.cityIdx 	= cityIdx; // if -1 the person is not used
@@ -59,7 +66,9 @@ var Person = function(name, cityIdx, timeslider, resultbar, interval){
 	this.interval 	= interval;
 }
 
-
+/**
+ *	Reads the interval of its corresponding timeslider.
+ */
 Person.prototype.readInterval = function() {
 	if (this.cityIdx < 0) {
 		this.interval 	= null;
@@ -69,6 +78,10 @@ Person.prototype.readInterval = function() {
 	}
 }
 
+/**
+ *	Displays the result in the persons resultbar. Does all the conversion into
+ *	the persons own timezone. Sort of a WRApPeR, yoo!
+ */
 Person.prototype.displayResult = function(intervals) {
 	var convertedIntervals = new Array();
 	var offset = this.interval.offset;
@@ -82,10 +95,3 @@ Person.prototype.displayResult = function(intervals) {
 	convertedIntervals = sortIntervalArray(convertedIntervals);
 	displayResult(this.resultbar, convertedIntervals);
 };
-
-
-
-
-
-
-

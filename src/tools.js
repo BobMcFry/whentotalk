@@ -16,11 +16,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
+
+
+/** Constant for maximum length of hours */
 MAX_INT_LEN = 24;
+/** Constant for minimum length of hours */
 MIN_INT_LEN = 0;
+/** Amount of persons used (more are supported by algorithm, but style of page
+ *	does not allow for more, haha) 
+ */
 PERSON_CNT 	= 4;
+/** Array of persons that participate in the conversation */
 persons 	= new Array();
 
+/** 
+ * 	Initialiazation method that is called upon creation of the website.
+ */
 function initialize() {
 
 	for (var i = 0; i < PERSON_CNT; i++) {
@@ -31,7 +42,9 @@ function initialize() {
 	installTimeSlider();
 }
 
-// initialize timesliders
+/** 
+ * 	Initializes the timeslider for every person.
+ */
 function installTimeSlider() {
 	
   	$('.timeslider').each(function(idx, elem){
@@ -77,7 +90,9 @@ function installTimeSlider() {
 	});
 }
 
-
+/** 
+ * 	Initializes the city chooser for every person.
+ */
 function installSelectize() {
 
 	$(".city-select").each(function(idx, elem){
@@ -109,7 +124,9 @@ function installSelectize() {
 	});
 }
 
-
+/** 
+ * 	A handle that converts the slider value to a tooltip displayable one
+ */
 function timesliderHandleEdit(value) {
 	var newValue = parseInt(value);
 	var rest = newValue-Math.floor(newValue);
@@ -117,13 +134,17 @@ function timesliderHandleEdit(value) {
 	
 }
 
-
+/** 
+ * 	A handle that redos the conversion done in "timesliderHandleEdit"
+ */
 function timesliderHandleUndo(value) {
 	var parts = value.split(":");
 	return parseInt(value[0])+parseInt(value[1])/60.0;
 }
 
-
+/** 
+ * 	Method which does the whole calculation of the common conversation times
+ */
 function calculateConversation(){
 	// check wether no of persons allows calculation
 	cnt = 0;
@@ -136,7 +157,11 @@ function calculateConversation(){
 		return;
 	}
 
+	// get the cartesian product of all intervals
 	var permutations 	= makeCombinations();
+
+	// for every combination of intervals find the intervals of common 
+	// conversation times
 	var resultIntervals = new Array();
 	for (var i = 0; i < permutations.length; i++) {
 		var minMax 	= findMinMax(permutations[i]);
@@ -145,8 +170,13 @@ function calculateConversation(){
 		}
 	};
 
+	// sort the intervals of common conversation times in order to display them
+	// correctly
+	// XXX: this can maybe put into "displayResult" method, as it is always
+	//      needed prior to displaying.
 	resultIntervals = sortIntervalArray(resultIntervals);
 	
+	// display the results on the resultbars
 	for (var i = 0; i < persons.length; i++) {
 		if (persons[i].cityIdx != -1) {
 			persons[i].displayResult(resultIntervals);
@@ -155,10 +185,13 @@ function calculateConversation(){
 	
 }
 
-
+/** 
+ * 	Sorts an array of Interval objects according to their start value from
+ * 	small to high values.
+ */
 function sortIntervalArray(intervals){
+	
 	var minIdx;
-	// sort the array wrt start element
 	for (var i = 0; i < intervals.length; i++) {
 		minIdx = i;
 		for (var j = i+1; j < intervals.length; j++) {
@@ -173,6 +206,12 @@ function sortIntervalArray(intervals){
 	return intervals;
 }
 
+/** 
+ * 	Creates all combinations of all intervals of one person with all intervals
+ * 	of other persons, by applying the cartesian product. As these intervals are
+ * 	needed for calculating the common conversation times, they are also converted
+ * 	to UTC. An array of arrays of Intervals is returned.
+ */
 function makeCombinations() {
 	var allIntervals = new Array();
 	for (var i = 0; i < persons.length; i++) {
@@ -184,73 +223,10 @@ function makeCombinations() {
 	return cartProd.apply(this, allIntervals);
 }
 
-
-// find maximum MIN and minimum MAX
-function findMinMax(intervals){
-	var result = new Array();
-	result.push(-1);
-	result.push(-1);
-	var min = 0-1;
-	var max = 24+1;
-
-	for (var i = 0; i < intervals.length; i++) {
-		if (intervals[i].start > min) {
-			min = intervals[i].start;
-			result[0] = min;
-		}
-
-		if (intervals[i].end < max) {
-			max = intervals[i].end;
-			result[1] = max;
-		}
-	};
-	return result;
-}
-
-
-
-
-function displayResult(bar, intervals){
-	
-	clearBar(bar);
-	
-	var current = 0;
-	for (var i = 0; i < intervals.length; i++) {
-		// paint red bar between intervals (should always apply)
-		if (current < intervals[i].start){
-			// paint red bar till start
-			paintBar(bar, "progress-bar-danger", intervals[i].start - current, false);
-			current = intervals[i].start;
-		} 
-		
-		// paint interval
-		paintBar(bar, "progress-bar-success", intervals[i].end - current, false);
-		current = intervals[i].end;
-	};
-
-	// paint last bar
-	if (current < MAX_INT_LEN){
-		paintBar(bar, "progress-bar-danger", MAX_INT_LEN - current, false);
-	}
-
-}
-
-// Holds all conversion functionalities. So width can be set via absolute values
-function paintBar(bar, color, width, text){
-	widthString = ((width/MAX_INT_LEN)*100) + "%";
-	$(bar).append($("<div></div>")
-		.attr("class", "progress-bar " + color)
-		.attr("style", "width:"+widthString)
-		.text((text ? width+"h": "")));
-}
-
-
-function clearBar(bar){
-	$(bar).empty();
-}
-
-	
-
+/** 
+ * Is called by "makeCombinations" in order to calculate the cartesion product
+ * of several given intervals.
+ */
 function cartProd(paramArray) {
 	function addTo(curr, args) {
 		var i, copy, 
@@ -273,13 +249,77 @@ function cartProd(paramArray) {
 	return addTo([], Array.prototype.slice.call(arguments));
 }
 
+/** 
+ * 	Method that finds the maximum MIN and the minimum MAX on a given array of 
+ * 	Intervals.
+ */
+function findMinMax(intervals){
+	var result = new Array();
+	result.push(-1);
+	result.push(-1);
+	var min = 0-1;
+	var max = 24+1;
 
+	for (var i = 0; i < intervals.length; i++) {
+		if (intervals[i].start > min) {
+			min = intervals[i].start;
+			result[0] = min;
+		}
 
+		if (intervals[i].end < max) {
+			max = intervals[i].end;
+			result[1] = max;
+		}
+	};
+	return result;
+}
 
+/** 
+ * 	Displays availability times in a resultbar according to certain given 
+ * 	interval.
+ */
+function displayResult(bar, intervals){
+	
+	clearBar(bar);
+	
+	var current = 0;
+	for (var i = 0; i < intervals.length; i++) {
 
+		// paint red bar between intervals (should always apply)
+		if (current < intervals[i].start){
+			// paint red bar till start
+			paintBar(bar, "progress-bar-danger", intervals[i].start - current, false);
+			current = intervals[i].start;
+		} 
+		
+		// paint interval
+		paintBar(bar, "progress-bar-success", intervals[i].end - current, false);
+		current = intervals[i].end;
+	};
 
+	// paint last bar
+	if (current < MAX_INT_LEN){
+		paintBar(bar, "progress-bar-danger", MAX_INT_LEN - current, false);
+	}
 
+}
 
+/** 
+ * 	Called by "displayResult" in order to add necessary DOM elements to 
+ * 	resultbar. Holds all conversion functionalities. So width can be set via 
+ * 	absolute values.
+ */
+function paintBar(bar, color, width, text){
+	widthString = ((width/MAX_INT_LEN)*100) + "%";
+	$(bar).append($("<div></div>")
+		.attr("class", "progress-bar " + color)
+		.attr("style", "width:"+widthString)
+		.text((text ? width+"h": "")));
+}
 
-
-
+/** 
+ * 	Clears a given resultbar of all DOM elements in it.
+ */
+function clearBar(bar){
+	$(bar).empty();
+}

@@ -15,33 +15,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */
-
-/* Make background */
-/*html { 
-	background: url("../img/background_blurred.jpg") no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}*/
-
-/* Reset white background from bootstrap */
-/*body {
-	background-color: transparent; 
-}*/
-
 .timeslidercontainer {
 	padding:60px 40px 40px 40px;	
 }
-
 .active-partner {
 	display: block;
 }
-
 .inactive-partner {
 	display: none;
 }
-
 /* for adjusting the progress bar according to the pips */
 .progress {
 	/*padding: -10px 0px 0px 0px;*/
