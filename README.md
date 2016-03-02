@@ -14,7 +14,8 @@ All Pictures are made by [me][github].
 * [SublimeText 2][sublime]
 * [Google Chrome][chrome]
 * [CSV to JSON converter][csvjson]
-
+* [JS Minifier][jsminify]
+* [JSON Minifier][jsonminify]
 ### Libraries
 * [jQuery][jquery]
 * [Bootstrap][bootstrap]
@@ -51,3 +52,5 @@ GNU General Public License for more details.
 [chrome]:https://www.google.com/chrome/
 [csvjson]:http://www.convertcsv.com/csv-to-json.htm
 [wnumb]:http://refreshless.com/wnumb/
+[jsminify]:http://www.danstools.com/javascript-minify/
+[jsonminify]:http://www.httputility.net/json-minifier.aspx
