@@ -259,15 +259,13 @@ function calculateConversation(){
 	var resultIntervals = new Array();
 	for (var i = 0; i < permutations.length; i++) {
 		var minMax 	= findMinMax(permutations[i]);
-		if (minMax[0] < minMax[1] && minMax[0] != -1 && minMax[1] != -1){
-			resultIntervals.push(new Interval(minMax[0], minMax[1], 0));
+		if (minMax != null && minMax.start < minMax.end){
+			resultIntervals.push(minMax);
 		}
 	};
 
 	// sort the intervals of common conversation times in order to display them
 	// correctly
-	// XXX: this can maybe put into "displayResult" method, as it is always
-	//      needed prior to displaying.
 	resultIntervals = sortIntervalArray(resultIntervals);
 	
 	// display the results on the resultbars
@@ -318,8 +316,9 @@ function makeCombinations() {
 }
 
 /** 
- * Is called by "makeCombinations" in order to calculate the cartesion product
- * of several given intervals.
+ * 	Is called by "makeCombinations" in order to calculate the cartesion product
+ * 	of several given intervals.
+ *	taken from here: http://stackoverflow.com/a/12305169
  */
 function cartProd(paramArray) {
 	function addTo(curr, args) {
@@ -348,24 +347,23 @@ function cartProd(paramArray) {
  * 	Intervals.
  */
 function findMinMax(intervals){
-	var result = new Array();
-	result.push(-1);
-	result.push(-1);
+	var result = new Interval(-1, -1, 0);
 	var min = 0-1;
 	var max = 24+1;
 
 	for (var i = 0; i < intervals.length; i++) {
 		if (intervals[i].start > min) {
 			min = intervals[i].start;
-			result[0] = min;
+			result.start = min;
 		}
 
 		if (intervals[i].end < max) {
 			max = intervals[i].end;
-			result[1] = max;
+			result.end = max;
 		}
 	};
-	return result;
+
+	return (result.start == -1 || result.end == -1 ? null : result);
 }
 
 /** 
