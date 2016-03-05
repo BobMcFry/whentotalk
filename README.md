@@ -5,6 +5,7 @@ WhenToTalk is a web application that makes it easier to plan conversations (Skyp
 As Christian H. has accurately put it:
 > I don't get this whole timezone stuff! There has to be an application that does that for me! Dang it!
 
+App in Action: http://bobmcfry.github.io/whentotalk/
 
 ## Credits
 ### Pictures
