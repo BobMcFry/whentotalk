@@ -1,5 +1,8 @@
 # WhenToTalk
 
+__Notice__: It currently does not support Summer and Winter time within this version.
+
+---
 WhenToTalk is a web application that makes it easier to plan conversations (Skype, Hangout, ...) with respect to the locations of every participant and their different times of availability.
 
 WhenToTalk now comes with daylight saving time support!
