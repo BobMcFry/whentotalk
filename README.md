@@ -2,8 +2,7 @@
 
 WhenToTalk is a web application that makes it easier to plan conversations (Skype, Hangout, ...) with respect to the locations of every participant and their different times of availability.
 
-As Christian H. has accurately put it:
-> I don't get this whole timezone stuff! There has to be an application that does that for me! Dang it!
+WhenToTalk now comes with daylight saving time support!
 
 App in Action: http://bobmcfry.github.io/whentotalk/
 
@@ -16,7 +15,6 @@ All Pictures are made by [me][github].
 * [Google Chrome][chrome]
 * [CSV to JSON converter][csvjson]
 * [JS Minifier][jsminify]
-* [JSON Minifier][jsonminify]
 
 ### Libraries
 * [jQuery][jquery]
@@ -46,7 +44,7 @@ GNU General Public License for more details.
 
 [jquery]:http://jquery.com/
 [nouislider]:http://refreshless.com/nouislider/
-[cities]:http://www.citytimezones.info/
+[cities]:http://momentjs.com/timezone/
 [selectize]:http://selectize.github.io/selectize.js/
 [bootstrap]:http://getbootstrap.com/
 [github]:https://github.com/BobMcFry
@@ -55,4 +53,3 @@ GNU General Public License for more details.
 [csvjson]:http://www.convertcsv.com/csv-to-json.htm
 [wnumb]:http://refreshless.com/wnumb/
 [jsminify]:http://www.danstools.com/javascript-minify/
-[jsonminify]:http://www.httputility.net/json-minifier.aspx
