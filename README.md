@@ -7,14 +7,17 @@ WhenToTalk now comes with daylight saving time support!
 App in Action: http://bobmcfry.github.io/whentotalk/
 
 ## Credits
-### Pictures
-All Pictures are made by [me][github].
+### Images
+All Images are made by [me][github]. 
 
 ### Tools
 * [SublimeText 2][sublime]
 * [Google Chrome][chrome]
 * [CSV to JSON converter][csvjson]
 * [JS Minifier][jsminify]
+* [RealFaviconGenerator.net][favicon]
+
+
 
 ### Libraries
 * [jQuery][jquery]
@@ -53,3 +56,4 @@ GNU General Public License for more details.
 [csvjson]:http://www.convertcsv.com/csv-to-json.htm
 [wnumb]:http://refreshless.com/wnumb/
 [jsminify]:http://www.danstools.com/javascript-minify/
+[favicon]:http://realfavicongenerator.net/
